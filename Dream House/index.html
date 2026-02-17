@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Villa VR - Modern Design</title>
+    <script src="Examination/script/aframe.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script
+        src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #instructions {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+            z-index: 1000;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="instructions">
+        <h3> Luxury Villa VR - Modern Architecture</h3>
+        <p>WASD - Move | Mouse - Look Around | Modern flat roof with parapets</p>
+    </div>
+
+    <a-scene physics="gravity: -9.8">
+        <!-- Asset Management -->
+        <a-assets>
+            <img id="wood-floor" src="assets/textures/wood.jpg.jpg" crossorigin="anonymous">
+            <img id="wood-texture" src="assets/textures/wood.jpg.jpg" crossorigin="anonymous">
+            <img id="marble" src="assets/textures/marble.jpg.jpg" crossorigin="anonymous">
+            <img id="grass" src="assets/textures/grass.jpg.jpg" crossorigin="anonymous">
+            <img id="tiles" src="assets/textures/tiles.jpg.jpg" crossorigin="anonymous">
+            <img id="bed-fabric" src="assets/textures/bed-fabric.jpg.jpg" crossorigin="anonymous">
+            <img id="roof-texture" src="assets/textures/roof-texture.jpg.jpg" crossorigin="anonymous">
+            <!-- Sky Texture for Reflections (Equirectangular) -->
+            <img id="sky-texture" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg"
+                crossorigin="anonymous">
+        </a-assets>
+
+        <!-- Camera Rig - Start position in living room -->
+        <a-entity id="rig" movement-controls position="0 0 3">
+            <a-entity camera look-controls wasd-controls="acceleration: 20" position="0 1.6 0">
+                <a-cursor color="#4CC3D9" raycaster="objects: .clickable"></a-cursor>
+            </a-entity>
+        </a-entity>
+
+        <!-- Environment -->
+        <a-sky color="#87CEEB"></a-sky>
+        <a-entity light="type: ambient; color: #FFF; intensity: 0.6"></a-entity>
+        <a-light type="directional" color="#FFF" intensity="0.8" position="5 10 5"></a-light>
+
+        <!-- Ground -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" src="Examination/Assets/textures/slate_driveway_diff_2k.jpg"
+            repeat="20 20"></a-plane>
+
+        <!-- MAIN HOUSE STRUCTURE -->
+        <a-entity position="0 0 0">
+            <!-- Main Floor Base -->
+            <a-box position="0 0.1 0" width="25" depth="20" height="0.2" src="Examination/Assets/textures/royguisinger-tile-890729_1920.jpg"></a-box>
+
+            <!-- ===== EXTERIOR WALLS ===== -->
+            <!-- Back Wall -->
+            <a-box position="0 2.5 -10" width="25" height="5" depth="0.3" src="Examination/Assets/textures/stone_tile_wall_diff_2k.jpg"></a-box>
+            <!-- Front Wall (with main entrance) - Extended to cover full width -->
+            <a-box position="-2 2.5 10" width="21" height="5" depth="0.3" src="Examination/Assets/textures/beige_wall_002_diff_2k.jpg"></a-box>
+            <!-- Left Wall -->
+            <a-box position="-12.5 2.5 0" rotation="0 90 0" width="20" height="5" depth="0.3" src="Examination/Assets/textures/stone_tile_wall_diff_2k.jpg"></a-box>
+            <!-- Right Wall -->
+            <a-box position="12.5 2.5 0" rotation="0 90 0" width="20" height="5" depth="0.3" src="Examination/Assets/textures/stone_tile_wall_diff_2k.jpg"></a-box>
+
+            <!-- ===== MODERN ROOF STRUCTURE ===== -->
+
+            <!-- Main Roof Deck (flat roof) -->
+            <a-box position="0 5.2 0" width="26" depth="21" height="0.2" src="Examination/Assets/textures/ceiling.jpg"></a-box>
+            <!-- Front Parapet -->
+            <a-box position="0 5.8 10.5" width="26.2" height="0.8" depth="0.4" color="#CCCCCC" static-body></a-box>
+            <!-- Back Parapet -->
+            <a-box position="0 5.8 -10.5" width="26.2" height="0.8" depth="0.4" color="#CCCCCC" static-body></a-box>
+            <!-- Left Parapet -->
+            <a-box position="-13 5.8 0" rotation="0 90 0" width="21.2" height="0.8" depth="0.4" color="#CCCCCC"
+                static-body></a-box>
+            <!-- Right Parapet -->
+            <a-box position="13 5.8 0" rotation="0 90 0" width="21.2" height="0.8" depth="0.4" color="#CCCCCC"
+                static-body></a-box>
+
+            <!-- Roof Overhangs (modern architectural detail) -->
+            <a-box position="0 5.2 11" width="26.2" height="0.2" depth="0.8" color="#AAAAAA" static-body></a-box>
+            <a-box position="0 5.2 -11" width="26.2" height="0.2" depth="0.8" color="#AAAAAA" static-body></a-box>
+            <a-box position="-13.5 5.2 0" rotation="0 90 0" width="21.2" height="0.2" depth="0.8" color="#AAAAAA"
+                static-body></a-box>
+            <a-box position="13.5 5.2 0" rotation="0 90 0" width="21.2" height="0.2" depth="0.8" color="#AAAAAA"
+                static-body></a-box>
+
+            <!-- Roof Drainage Elements (modern architectural details) -->
+            <a-cylinder position="-11 5.4 9" radius="0.1" height="0.2" color="#888888" rotation="0 0 0"></a-cylinder>
+            <a-cylinder position="11 5.4 9" radius="0.1" height="0.2" color="#888888" rotation="0 0 0"></a-cylinder>
+            <a-cylinder position="-11 5.4 -9" radius="0.1" height="0.2" color="#888888" rotation="0 0 0"></a-cylinder>
+            <a-cylinder position="11 5.4 -9" radius="0.1" height="0.2" color="#888888" rotation="0 0 0"></a-cylinder>
+
+            <!-- Roof Skylights (modern glass elements) -->
+            <a-box position="-3 5.4 2" width="1.5" height="0.1" depth="1" color="#87CEEB" opacity="0.7"
+                metalness="0.9"></a-box>
+            <a-box position="3 5.4 2" width="1.5" height="0.1" depth="1" color="#87CEEB" opacity="0.7"
+                metalness="0.9"></a-box>
+            <a-box position="-3 5.4 -3" width="1.5" height="0.1" depth="1" color="#87CEEB" opacity="0.7"
+                metalness="0.9"></a-box>
+            <a-box position="3 5.4 -3" width="1.5" height="0.1" depth="1" color="#87CEEB" opacity="0.7"
+                metalness="0.9"></a-box>
+
+            <!-- Roof Railing (modern minimalist) -->
+            <a-entity position="0 6 0">
+                <!-- Front railing posts -->
+                <a-cylinder position="-8 0 10.3" radius="0.05" height="0.8" color="#CCCCCC"></a-cylinder>
+                <a-cylinder position="-4 0 10.3" radius="0.05" height="0.8" color="#CCCCCC"></a-cylinder>
+                <a-cylinder position="0 0 10.3" radius="0.05" height="0.8" color="#CCCCCC"></a-cylinder>
+                <a-cylinder position="4 0 10.3" radius="0.05" height="0.8" color="#CCCCCC"></a-cylinder>
+                <a-cylinder position="8 0 10.3" radius="0.05" height="0.8" color="#CCCCCC"></a-cylinder>
+                <!-- Railing bars -->
+                <a-box position="-8 0.2 10.3" width="0.1" height="0.05" depth="0.1" color="#CCCCCC"></a-box>
+                <a-box position="-4 0.2 10.3" width="0.1" height="0.05" depth="0.1" color="#CCCCCC"></a-box>
+                <a-box position="0 0.2 10.3" width="0.1" height="0.05" depth="0.1" color="#CCCCCC"></a-box>
+                <a-box position="4 0.2 10.3" width="0.1" height="0.05" depth="0.1" color="#CCCCCC"></a-box>
+                <a-box position="8 0.2 10.3" width="0.1" height="0.05" depth="0.1" color="#CCCCCC"></a-box>
+            </a-entity>
+
+            <!--  INTERIOR DIVIDING WALLS -->
+
+            <!-- Wall between Living Room and Bedroom (Right side) - -->
+            <a-box position="4 2.5 -2.5" rotation="0 90 0" width="15" height="5" depth="0.2" src="Examination/Assets/textures/beige_wall_002_diff_2k.jpg"></a-box>
+
+            <!-- Wall between Living Room and Kitchen (Left side) -->
+            <a-box position="-5 2.5 -6" rotation="0 90 0" width="8.5" height="5" depth="0.2" src="Examination/Assets/textures/beige_wall_002_diff_2k.jpg"></a-box>
+
+            <!-- Back wall for Bedroom division (at z=-5) -->
+            <a-box position="9.6 2.5 -6.2" width="6" height="5" depth="0.2" src="Examination/Assets/textures/beige_wall_002_diff_2k.jpg"></a-box>
+
+            <!-- Washroom back wall -->
+            <a-box position="10.5 2.5 3" width="4" height="5" depth="0.2" src="Examination/Assets/textures/beige_wall_002_diff_2k.jpg"></a-box>
+
+            <!-- Kitchen/Dining partition -->
+            <a-box position="-7.0 2.2 -1.8" width="4.0" height="5.5" depth="0.1" src="Examination/Assets/textures/stone_tile_wall_diff_2k.jpg"></a-box>
+
+            <!--DOORWAYS -->
+
+            <!-- Main Entrance Door (Modern & Open) -->
+            <a-entity id="main-entrance" position="10.5 0 10">
+                <!-- Modern Door Frame (Dark Metal/Wood) -->
+                <a-box position="-0.10 4.9 -0.10" width="3.8" height="0.1" depth="0.3" color="#222"></a-box>
+                <!-- Top Header -->
+                <a-box position="-2 1.15 0" width="0.1" height="7.5" depth="0.3" color="#222"></a-box>
+                <!-- Left Jamb -->
+                <a-box position="1.85 1.15 0" width="0.1" height="7.5" depth="0.3" color="#222"></a-box>
+                <!-- Right Jamb -->
+
+                <!-- Door Leaf (Open/Pivoted) -->
+                <a-entity position="1.90 0 0" rotation="0 70 0"> 
+                    <a-box position="-0.9 1.15 0" width="1.8" height="7." depth="0.08" color="#8B4513"
+                        src="assets/textures/wood.jpg.jpg"></a-box>
+                    <!-- Modern Long Vertical Handle -->
+                    <a-cylinder position="-1.6 1.1 0.06" radius="0.02" height="1.2" color="#C0C0C0" metalness="0.8"
+                        roughness="0.2"></a-cylinder>
+                    <a-cylinder position="-1.6 1.1 -0.06" radius="0.02" height="1.2" color="#C0C0C0" metalness="0.8"
+                        roughness="0.2"></a-cylinder>
+                    <!-- Handle Standoffs -->
+                    <a-cylinder position="-1.6 1.6 0.05" rotation="90 0 0" radius="0.015" height="0.05"
+                        color="#C0C0C0"></a-cylinder>
+                    <a-cylinder position="-1.6 0.6 0.05" rotation="90 0 0" radius="0.015" height="0.05"
+                        color="#C0C0C0"></a-cylinder>
+                </a-entity>
+            </a-entity>
+           
+                <!-- Ceiling light -->
+                <a-sphere position="0 2.15 0" radius="0.12" color="#FFF8E1" light="type: point; intensity: 0.9; distance: 4"></a-sphere>
+            </a-entity>
+
+        <!-- DUAL FRONT WINDOWS-->
+        <!-- Left Kitchen Window -->
+        <a-entity position="-6 3.0 10.15">
+            <!-- Window Frame -->
+            <a-box width="3.5" height="2.8" depth="0.2" color="#222222" metalness="0.7" roughness="0.3"></a-box>
+            <!-- Glass -->
+            <a-box position="0 0 0.05" width="3.3" height="2.6" depth="0.05" color="#87CEEB" opacity="0.10"
+                metalness="0.9" roughness="0.1" emissive="#000000"></a-box>
+            <!-- Vertical Mullions -->
+            <a-box position="-1.1 0 0.1" width="0.1" height="2.6" depth="0.1" color="#444444"></a-box>
+            <a-box position="1.1 0 0.1" width="0.1" height="2.6" depth="0.1" color="#444444"></a-box>
+            <!-- Horizontal Divider -->
+            <a-box position="0 0 0.1" width="3.3" height="0.1" depth="0.1" color="#444444"></a-box>
+        </a-entity>
+
+        <!-- Right Bedroom Window-->
+        <a-entity position="6 3.0 10.15">
+            <!-- Window Frame -->
+            <a-box width="3.5" height="2.8" depth="0.2" color="#222222" metalness="0.7" roughness="0.3"></a-box>
+            <!-- Glass -->
+            <a-box position="0 0 0.05" width="3.3" height="2.6" depth="0.05" color="#87CEEB" opacity="0.10"
+                metalness="0.9" roughness="0.1" emissive="#000000"></a-box>
+            <!-- Vertical Mullions -->
+            <a-box position="-1.1 0 0.1" width="0.1" height="2.6" depth="0.1" color="#444444"></a-box>
+            <a-box position="1.1 0 0.1" width="0.1" height="2.6" depth="0.1" color="#444444"></a-box>
+            <!-- Horizontal Divider -->
+            <a-box position="0 0 0.1" width="3.3" height="0.1" depth="0.1" color="#444444"></a-box>
+        </a-entity>
+
+        <!-- Living Room Ceiling Fan -->
+        <a-entity position="0 4.8 0">
+            <a-cylinder radius="0.2" height="0.2" color="#C0C0C0" material="metalness:0.8; roughness:0.2"></a-cylinder>
+            <a-entity class="fan-blades" position="0 -0.1 0"
+                animation="property: rotation; to: 0 360 0; dur: 4000; loop: true; easing: linear">
+                <a-box position="0.8 0 0" width="1.5" height="0.05" depth="0.2" color="#F5F5F5"></a-box>
+                <a-box position="-0.8 0 0" width="1.5" height="0.05" depth="0.2" color="#F5F5F5"></a-box>
+                <a-box position="0 0 0.8" width="0.2" height="0.05" depth="1.5" color="#F5F5F5"></a-box>
+                <a-box position="0 0 -0.8" width="0.2" height="0.05" depth="1.5" color="#F5F5F5"></a-box>
+                <a-cylinder radius="0.1" height="0.05" color="#A0A0A0"></a-cylinder>
+            </a-entity>
+            <a-cylinder position="0 -0.3 0" radius="0.05" height="0.4" color="#C0C0C0"></a-cylinder>
+            <a-sphere position="0 -0.6 0" radius="0.15" color="#FFE4B5" emissive="#FFD700"
+                light="type: point; intensity: 0.3; color: #FFE4B5"></a-sphere>
+        </a-entity>
+
+        <!-- Bedroom Ceiling Fan -->
+        <a-entity position="6.5 4.8 0">
+            <a-cylinder radius="0.2" height="0.2" color="#C0C0C0" material="metalness:0.8; roughness:0.2"></a-cylinder>
+            <a-entity class="fan-blades" position="0 -0.1 0"
+                animation="property: rotation; to: 0 360 0; dur: 3500; loop: true; easing: linear">
+                <a-box position="0.8 0 0" width="1.5" height="0.05" depth="0.2" color="#F5F5F5"></a-box>
+                <a-box position="-0.8 0 0" width="1.5" height="0.05" depth="0.2" color="#F5F5F5"></a-box>
+                <a-box position="0 0 0.8" width="0.2" height="0.05" depth="1.5" color="#F5F5F5"></a-box>
+                <a-box position="0 0 -0.8" width="0.2" height="0.05" depth="1.5" color="#F5F5F5"></a-box>
+                <a-cylinder radius="0.1" height="0.05" color="#A0A0A0"></a-cylinder>
+            </a-entity>
+            <a-cylinder position="0 -0.3 0" radius="0.05" height="0.4" color="#C0C0C0"></a-cylinder>
+            <a-sphere position="0 -0.6 0" radius="0.15" color="#FFE4B5" emissive="#FFD700"
+                light="type: point; intensity: 0.2; color: #FFE4B5"></a-sphere>
+        </a-entity>
+
+        <!-- Kitchen Ceiling Fan -->
+        <a-entity position="-6.5 4.8 0">
+            <a-cylinder radius="0.2" height="0.2" color="#C0C0C0" material="metalness:0.8; roughness:0.2"></a-cylinder>
+            <a-entity class="fan-blades" position="0 -0.1 0"
+                animation="property: rotation; to: 0 360 0; dur: 3000; loop: true; easing: linear">
+                <a-box position="0.8 0 0" width="1.5" height="0.05" depth="0.2" color="#F5F5F5"></a-box>
+                <a-box position="-0.8 0 0" width="1.5" height="0.05" depth="0.2" color="#F5F5F5"></a-box>
+                <a-box position="0 0 0.8" width="0.2" height="0.05" depth="1.5" color="#F5F5F5"></a-box>
+                <a-box position="0 0 -0.8" width="0.2" height="0.05" depth="1.5" color="#F5F5F5"></a-box>
+                <a-cylinder radius="0.1" height="0.05" color="#A0A0A0"></a-cylinder>
+            </a-entity>
+            <a-cylinder position="0 -0.3 0" radius="0.05" height="0.4" color="#C0C0C0"></a-cylinder>
+            <a-sphere position="0 -0.6 0" radius="0.15" color="#FFE4B5" emissive="#FFD700"
+                light="type: point; intensity: 0.25; color: #FFE4B5"></a-sphere>
+        </a-entity>
+
+        <!-- ========== LIVING ROOM (CENTER) ========== -->
+            <!-- TV Unit -->
+             <a-entity id="tv" position="-5 1.3 -3.5" scale="0.03 0.03 0.03" rotation="0 0 0">
+                <a-entity 
+                gltf-model="Examination/Assets/models/tv-table.glb" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+
+
+            <!-- sofa -->
+            <a-entity id="sofa" position="-2 0.2 4.5" scale="0.03 0.03  0.03" rotation="0 180 0">
+                <a-entity 
+                gltf-model="Examination/Assets/models/sofa (1).glb" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+
+
+        <!-- ========== BEDROOM (RIGHT SIDE) ========== -->
+        <a-entity position="6.5 0 -1">
+            <a-plane position="0 0.21 0" rotation="-90 0 0" width="7" height="7" src="Examination/Assets/textures/royguisinger-tile-890729_1920.jpg"></a-plane>
+            <a-plane position="0 0.22 1" rotation="-90 0 0" width="4" height="3" color="#8B4513"
+                opacity="0.3"></a-plane>
+
+            <!-- Bed -->
+            <a-entity id="bed" position="3.5 0 -4.5" scale="2 1.3 1.5">
+                <a-entity 
+                gltf-model="Examination/Assets/models/psx_bed.glb" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+
+            <!-- Wardrobe -->
+            <a-entity id="wardrope" position="5 0.01 0.9" scale="1 1 1" rotation="0 -90 0">
+                <a-entity 
+                gltf-model="Examination/Assets/models/wardrobe.glb" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+            <!-- Refrigerator -->
+            <a-entity id="refrigerator" position="-18 0 4" scale="0.01 0.01 0.01" rotation="0 90 0">
+                <a-entity 
+                gltf-model="Examination/Assets/models/fridge_asset_-_home_appliances.glb" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+
+           <!-- washroom -->
+            <a-entity id="washroom" position="-2.5 0.3 -12" scale="0.2 0.2 0.2" rotation="0 90 0">
+                <a-entity 
+                gltf-model="Examination/Assets/models/shower_with_a_toilet_in_a_bathroom_revised.glb" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+        <!-- ========== KITCHEN (LEFT SIDE) ========== -->
+        <a-entity id="kitchen" position="-11.8 0 -9" scale="1.5 1.2 1.4">
+                <a-entity 
+                gltf-model="Examination/Assets/models/a_low-poly_modular_kitchen_set.glb" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+            <!-- Refrigerator -->
+            <a-entity id="refrigerator" position="-12.5 0 -3.3" scale="0.01 0.01 0.01" rotation="0 -90 0">
+                <a-entity 
+                gltf-model="Examination/Assets/models/fridge_asset_-_home_appliances.glb" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+
+        
+        <!-- ========== SWIMMING POOL (Updated to modern backyard standard) ========== -->
+        <a-entity id="modern-pool" position="21 -0.5 0">
+            <a-box position="0 0 0" width="5.5" height="0.14" depth="10" color="#E0E0E0"></a-box>
+            <a-box position="0 0.07 0" width="5.3" height="0.12" depth="9.8" color="#D0D0D0" src="assets/textures/pool_deck.jpg.jpg"
+                repeat="3 6"></a-box>
+
+            <!-- Main Pool Water Volume -->
+            <a-box id="pool-water" position="0 0.7 0" width="3.5" height="1.4" depth="8" color="#00BFFF" opacity="0.5"
+                metalness="0.1" roughness="0.1"></a-box>
+
+            <!-- Sun Shelf / Baja Shelf-->
+            <a-box position="0 0.9 -3.5" width="3.5" height="1" depth="1" color="#00BFFF" opacity="0.6" metalness="0.1"
+                roughness="0.1"></a-box>
+            <a-box position="0 0.4 -3.5" width="3.5" height="0.9" depth="1" color="#E0E0E0"></a-box> <!-- Shelf base -->
+
+            <!-- Water Surface (Animated) -->
+            <a-plane position="0 1.41 0" rotation="-90 0 0" width="3.5" height="8" color="#87CEEB" opacity="0.4"
+                material="metalness:0.9; roughness:0.1; envMap:#sky">
+                <a-animation attribute="material.opacity" from="0.4" to="0.3" dur="2000" dir="alternate"
+                    repeat="indefinite"></a-animation>
+            </a-plane>
+
+            <!-- Long sides (Z axis) -->
+            <a-box position="1.95 1.45 0" width="0.4" height="0.1" depth="8.4" color="#F5F5F5"></a-box>
+            <a-box position="-1.95 1.45 0" width="0.4" height="0.1" depth="8.4" color="#F5F5F5"></a-box>
+            <!-- Short sides (X axis) -->
+            <a-box position="0 1.45 4.2" width="4.3" height="0.1" depth="0.4" color="#F5F5F5"></a-box>
+            <a-box position="0 1.45 -4.2" width="4.3" height="0.1" depth="0.4" color="#F5F5F5"></a-box>
+
+            <!-- Pool Steps -->
+            <a-entity position="0 0 -2.5">
+                <a-box position="0 0.3 0" width="2" height="0.05" depth="0.8" color="#FFFFFF"></a-box>
+                <a-box position="0 0.6 0.4" width="2" height="0.05" depth="0.8" color="#FFFFFF"></a-box>
+                <a-box position="0 0.9 0.8" width="2" height="0.05" depth="0.8" color="#FFFFFF"></a-box>
+            </a-entity>
+
+            <!-- Modern Handrail -->
+            <a-entity position="2 1.45 -3.5">
+                <a-tube path="0 0 0, 0 1 0, -0.5 1 0, -0.5 0 0" radius="0.04"
+                    material="color: #C0C0C0; metalness: 1; roughness: 0.2"></a-tube>
+            </a-entity>
+
+            <!-- Underwater Lighting  -->
+            <a-box position="1.7 1 0" width="0.05" height="0.05" depth="7" color="#00FFFF" emissive="#00FFFF"
+                opacity="0.8"></a-box>
+            <a-box position="-1.7 1 0" width="0.05" height="0.05" depth="7" color="#00FFFF" emissive="#00FFFF"
+                opacity="0.8"></a-box>
+
+            <!-- Glass Safety Fence -->
+            <!-- Long sides -->
+            <a-box position="2.65 1.6 0" width="0.02" height="1.2" depth="9.8" color="#AADDFF" opacity="0.1"
+                metalness="0.9"></a-box>
+            <a-box position="-2.65 1.6 0" width="0.02" height="1.2" depth="9.8" color="#AADDFF" opacity="0.1"
+                metalness="0.9"></a-box>
+            <!-- Short sides -->
+            <a-box position="0 1.6 4.9" width="5.3" height="1.2" depth="0.02" color="#AADDFF" opacity="0.1"
+                metalness="0.9"></a-box>
+            <a-box position="0 1.6 -4.9" width="5.3" height="1.2" depth="0.02" color="#AADDFF" opacity="0.1"
+                metalness="0.9"></a-box>
+
+            <!-- Fence Spigots -->
+            <a-entity position="2.65 1 0"> <a-cylinder position="0 0 -4" radius="0.03" height="0.2"
+                    color="#C0C0C0"></a-cylinder> <a-cylinder position="0 0 4" radius="0.03" height="0.2"
+                    color="#C0C0C0"></a-cylinder> </a-entity>
+            <a-entity position="-2.65 1 0"> <a-cylinder position="0 0 -4" radius="0.03" height="0.2"
+                    color="#C0C0C0"></a-cylinder> <a-cylinder position="0 0 4" radius="0.03" height="0.2"
+                    color="#C0C0C0"></a-cylinder> </a-entity>
+
+            <!-- Lover's Bench -->
+            <a-entity position="0 0.6 6.5" rotation="0 180 0">
+                <!-- Base -->
+                <a-cylinder radius="0.8" height="0.3" color="#333333" material="roughness: 0.8"></a-cylinder>
+                <!-- Mattress -->
+                <a-cylinder position="0 0.25 0" radius="0.75" height="0.3" color="#F5F5DC"
+                    material="roughness: 1"></a-cylinder>
+                <!-- Backrest (Curved) -->
+                <a-torus position="0 0.4 0" rotation="-90 0 0" radius="0.75" radius-tubular="0.08" arc="180"
+                    color="#333333"></a-torus>
+                <!-- Pillows -->
+                <a-sphere position="-0.3 0.6 -0.4" radius="0.18" color="#FFFAF0" scale="1 0.6 1"></a-sphere>
+                <a-sphere position="0.3 0.6 -0.4" radius="0.18" color="#FFFAF0" scale="1 0.6 1"></a-sphere>
+
+                <!-- Modern Cantilever Umbrella (Resized) -->
+                <a-entity position="-1 -0.15 -0.8">
+                    <!-- Base -->
+                    <a-box width="0.4" height="0.1" depth="0.4" color="#2F4F4F"></a-box>
+                    <!-- Vertical Pole -->
+                    <a-cylinder position="0 1.0 0" radius="0.03" height="2.0" color="#2F4F4F"></a-cylinder>
+                    <!-- Angled Arm -->
+                    <a-cylinder position="0.4 2.0 0" rotation="0 0 70" radius="0.02" height="1.2"
+                        color="#2F4F4F"></a-cylinder>
+                    <!-- Canopy (Hexagonal) -->
+                    <a-cone position="1.0 2.4 0" radius-bottom="1.2" radius-top="0" height="0.25" color="#F5F5DC"
+                        open-ended="false" segments-radial="6"></a-cone>
+                </a-entity>
+            </a-entity>
+        </a-entity>
+
+        <!-- ========== PERIMETER FENCE (Modern Design) ========== -->
+        <a-entity id="perimeter-fence">
+            <!-- Parameters: 50m x 50m area. height 2.5m -->
+
+            <!-- BACK WALL (Z = -25) -->
+            <a-entity position="0 0 -25">
+                <!-- Pillars every 5m -->
+                <!-- We'll use a mixin concept by repeating entities since we don't have mixins defined in assets -->
+                <a-entity id="back-wall-segment">
+                    <!-- Wall/Fence Base -->
+                    <a-box position="0 0.2 0" width="50" height="0.4" depth="0.4" color="#444"></a-box>
+
+
+                    <!-- Long horizontal slats spanning between pillars -->
+                    <a-box position="0 1.5 0" width="50" height="2.2" depth="0.05" color="#1a1a1a" opacity="0.0"
+                        visible="false"></a-box> <!-- Placeholder for collision if needed -->
+
+                    <!-- Replicating pillars and slats manually for the Back Wall -->
+                    <!-- Pillar 1 --> <a-box position="-25 1.25 0" width="0.6" height="2.5" depth="0.6"
+                        color="#333"></a-box>
+                    <!-- Pillar 2 --> <a-box position="-15 1.25 0" width="0.6" height="2.5" depth="0.6"
+                        color="#333"></a-box>
+                    <!-- Pillar 3 --> <a-box position="-5 1.25 0" width="0.6" height="2.5" depth="0.6"
+                        color="#333"></a-box>
+                    <!-- Pillar 4 --> <a-box position="5 1.25 0" width="0.6" height="2.5" depth="0.6"
+                        color="#333"></a-box>
+                    <!-- Pillar 5 --> <a-box position="15 1.25 0" width="0.6" height="2.5" depth="0.6"
+                        color="#333"></a-box>
+                    <!-- Pillar 6 --> <a-box position="25 1.25 0" width="0.6" height="2.5" depth="0.6"
+                        color="#333"></a-box>
+
+                    <!-- Slats (Wood texture horizontal) -->
+                    <a-box position="0 0.8 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                    <a-box position="0 1.2 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                    <a-box position="0 1.6 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                    <a-box position="0 2.0 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+
+                    <!-- Pillar Lights (Back) -->
+                    <a-box position="-25 2.4 0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                        intensity="0.5"></a-box>
+                    <a-box position="-15 2.4 0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                        intensity="0.5"></a-box>
+                    <a-box position="-5 2.4 0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                        intensity="0.5"></a-box>
+                    <a-box position="5 2.4 0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                        intensity="0.5"></a-box>
+                    <a-box position="15 2.4 0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                        intensity="0.5"></a-box>
+                    <a-box position="25 2.4 0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                        intensity="0.5"></a-box>
+                </a-entity>
+            </a-entity>
+
+            <!-- FRONT WALL (Z = 25) with MAIN GATE -->
+            <a-entity position="0 0 25">
+                <!-- Base segments (leaving gap for gate in middle) -->
+                <a-box position="-15 0.2 0" width="20" height="0.4" depth="0.4" color="#444"></a-box>
+                <a-box position="15 0.2 0" width="20" height="0.4" depth="0.4" color="#444"></a-box>
+
+                <!-- Pillars -->
+                <a-box position="-25 1.25 0" width="0.6" height="2.5" depth="0.6" color="#333"></a-box>
+                <a-box position="-5 1.5 0" width="0.8" height="3" depth="0.8" color="#222"></a-box>
+                <!-- Gate Post Left -->
+                <a-box position="5 1.5 0" width="0.8" height="3" depth="0.8" color="#222"></a-box>
+                <!-- Gate Post Right -->
+                <a-box position="25 1.25 0" width="0.6" height="2.5" depth="0.6" color="#333"></a-box>
+
+                <!-- Slats -->
+                <a-box position="-15 0.8 0" width="19.4" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="-15 1.2 0" width="19.4" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="-15 1.6 0" width="19.4" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="-15 2.0 0" width="19.4" height="0.2" depth="0.1" color="#8B4513"></a-box>
+
+                <a-box position="15 0.8 0" width="19.4" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="15 1.2 0" width="19.4" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="15 1.6 0" width="19.4" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="15 2.0 0" width="19.4" height="0.2" depth="0.1" color="#8B4513"></a-box>
+
+                <!-- MAIN GATE (Sliding Modern Gate) -->
+                <a-entity id="main-gate" position="0 0 0">
+                    <!-- Frame - Opened slightly (Slid apart) -->
+                    <a-box position="-3.3 1.25 0" width="4.8" height="2.2" depth="0.1" color="#111"
+                        opacity="0.9"></a-box>
+                    <a-box position="3.3 1.25 0" width="4.8" height="2.2" depth="0.1" color="#111"
+                        opacity="0.9"></a-box>
+
+                    <!-- Gate Lights (Top Spheres) -->
+                    <a-sphere position="-5 2.8 0" radius="0.25" color="#FFF" emissive="#FFF" intensity="1"></a-sphere>
+                    <a-sphere position="5 2.8 0" radius="0.25" color="#FFF" emissive="#FFF" intensity="1"></a-sphere>
+
+                    <!-- Gate Pillar Lights (Front/Outside Face) -->
+                    <!-- Mounted on the Z+ face of the pillars (z=0.4 relative to wall center) -->
+                    <a-entity position="-5 2 0.45">
+                        <a-box width="0.3" height="0.4" depth="0.1" color="#111"></a-box> <!-- Fixture Body -->
+                        <a-box position="0 0 0.05" width="0.2" height="0.3" depth="0.02" color="#FFF" emissive="#FFF"
+                            intensity="1.5"></a-box> <!-- Light Plane -->
+                    </a-entity>
+                    <a-entity position="5 2 0.45">
+                        <a-box width="0.3" height="0.4" depth="0.1" color="#111"></a-box> <!-- Fixture Body -->
+                        <a-box position="0 0 0.05" width="0.2" height="0.3" depth="0.02" color="#FFF" emissive="#FFF"
+                            intensity="1.5"></a-box> <!-- Light Plane -->
+                    </a-entity>
+                </a-entity>
+            </a-entity>
+
+            <!-- LEFT WALL (X = -25) -->
+            <a-entity position="-25 0 0" rotation="0 90 0">
+                <!-- Base -->
+                <a-box position="0 0.2 0" width="50" height="0.4" depth="0.4" color="#444"></a-box>
+                <!-- Pillars -->
+                <a-box position="-15 1.25 0" width="0.6" height="2.5" depth="0.6" color="#333"></a-box>
+                <a-box position="0 1.25 0" width="0.6" height="2.5" depth="0.6" color="#333"></a-box>
+                <a-box position="15 1.25 0" width="0.6" height="2.5" depth="0.6" color="#333"></a-box>
+
+                <!-- Slats -->
+                <a-box position="0 0.8 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="0 1.2 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="0 1.6 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="0 2.0 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+
+                <!-- Side Gate (Pedestrian) -->
+                <a-entity position="0 0 0">
+                    <a-box position="0 1.1 0" width="1.5" height="2.2" depth="0.15" color="#222"></a-box>
+                    <a-box position="0.6 1.1 0.1" width="0.1" height="0.4" depth="0.1" color="#AAA"></a-box>
+                    <!-- Handle -->
+                </a-entity>
+
+                <!-- Lights -->
+                <a-box position="-15 2.4 0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                    intensity="0.5"></a-box>
+                <a-box position="0 2.4 0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                    intensity="0.5"></a-box>
+                <a-box position="15 2.4 0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                    intensity="0.5"></a-box>
+            </a-entity>
+
+            <!-- RIGHT WALL (X = 25) -->
+            <a-entity position="25 0 0" rotation="0 90 0">
+                <!-- Base -->
+                <a-box position="0 0.2 0" width="50" height="0.4" depth="0.4" color="#444"></a-box>
+                <!-- Pillars -->
+                <a-box position="-15 1.25 0" width="0.6" height="2.5" depth="0.6" color="#333"></a-box>
+                <a-box position="0 1.25 0" width="0.6" height="2.5" depth="0.6" color="#333"></a-box>
+                <a-box position="15 1.25 0" width="0.6" height="2.5" depth="0.6" color="#333"></a-box>
+
+                <!-- Slats -->
+                <a-box position="0 0.8 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="0 1.2 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="0 1.6 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+                <a-box position="0 2.0 0" width="50" height="0.2" depth="0.1" color="#8B4513"></a-box>
+
+                <!-- Side Gate (Pedestrian - near pool area) -->
+                <a-entity position="5 0 0">
+                    <a-box position="0 1.1 0" width="1.5" height="2.2" depth="0.15" color="#222"></a-box>
+                    <a-box position="0.6 1.1 -0.1" width="0.1" height="0.4" depth="0.1" color="#AAA"></a-box>
+                    <!-- Handle -->
+                </a-entity>
+
+                <!-- Lights -->
+                <a-box position="-15 2.4 -0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                    intensity="0.5"></a-box>
+                <a-box position="0 2.4 -0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                    intensity="0.5"></a-box>
+                <a-box position="15 2.4 -0.31" width="0.2" height="0.4" depth="0.05" color="#FFF" emissive="#FFF"
+                    intensity="0.5"></a-box>
+            </a-entity>
+
+            <!-- ========== FRONT LAWN & WALKWAY ========== -->
+            <a-entity id="front-lawn">
+                <!-- DRY DRIVEWAY (Paved) -->
+                <a-box position="-10 0.1 19" width="4" height="0.1" depth="10" color="#333333" roughness="0.9"></a-box>
+                <a-box position="-10 0.1 19" width="4.2" height="0.08" depth="11" color="#555555"></a-box>
+                <!-- Border -->
+
+                <!-- MODERN LUXURY CAR -->
+                <a-entity id="CAR" position="-9.2 0.3 18" scale="1 1 1" rotation="0 0 0">
+                <a-entity 
+                gltf-model="Examination/Assets/models/low_poly_mazda_rx-7.glb"
+                material="color: #FFFF00; metalness: 0.8; roughness: 0.2; emissive: #000000" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+
+                <!-- Central walkway (stone) leading to main entrance (z ~ 10) -->
+                <a-plane position="3.7 0.05 16" rotation="-90 0 0" width="3" height="8" color="#BDBDBD"></a-plane>
+
+                <!-- Planters near entrance -->
+                <a-entity id="TREE" position="-18.5 -0.7 18" scale="0.03 0.03 0.01" rotation="0 0 0">
+                <a-entity 
+                gltf-model="Examination/Assets/models/coconut_tree_low_poly.glb" 
+                shadow="cast: true; receive: true"
+                position="0 0 0">
+                </a-entity>
+           </a-entity>
+
+                <!-- Path lights (subtle) -->
+                <a-entity>
+                    <a-cylinder position="-0.5 0.25 13" radius="0.05" height="0.5" color="#C0C0C0"></a-cylinder>
+                    <a-sphere position="-0.5 0.6 13" radius="0.08" color="#FFF8E1"
+                        light="type: point; intensity: 0.6; distance: 4"></a-sphere>
+
+                    <a-cylinder position="8 0.25 13" radius="0.05" height="0.5" color="#C0C0C0"></a-cylinder>
+                    <a-sphere position="8 0.6 13" radius="0.08" color="#FFF8E1"
+                        light="type: point; intensity: 0.6; distance: 4"></a-sphere>
+
+                    <a-cylinder position="-0.5 0.25 19" radius="0.05" height="0.5" color="#C0C0C0"></a-cylinder>
+                    <a-sphere position="-0.5 0.6 19" radius="0.08" color="#FFF8E1"
+                        light="type: point; intensity: 0.6; distance: 4"></a-sphere>
+
+                    <a-cylinder position=" 8 0.25 19" radius="0.05" height="0.5" color="#C0C0C0"></a-cylinder>
+                    <a-sphere position="8 0.6 19" radius="0.08" color="#FFF8E1"
+                        light="type: point; intensity: 0.6; distance: 4"></a-sphere>
+                </a-entity>
+            </a-entity>
+    </a-scene>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('instructions').style.display = 'none';
+        }, 8000);
+    </script>
+</body>
+
+</html>
